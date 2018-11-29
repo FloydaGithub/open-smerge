@@ -1,5 +1,5 @@
 [
     { 
-        "keys": ["ctrl+alt+m"], "command": "open_smerge"
+        "keys": ["super+ctrl+m"], "command": "open_smerge"
     }
 ]
