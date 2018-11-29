@@ -5,10 +5,10 @@ import subprocess
 
 
 def open_smerge(path):
-    cmd = 'smerge -b "%s"' % path
+    cmd = 'smerge "%s"' % path
     err = subprocess.call(cmd, shell=True)
     if err != 0:
-        sublime.message_dialog("open smerge faild")
+        sublime.message_dialog("open smerge faild:[%d]" % err)
 
 
 def get_repo_forward(path, repos={}):
