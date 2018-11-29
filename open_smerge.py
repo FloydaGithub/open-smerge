@@ -69,8 +69,9 @@ class OpenSmergeCommand(sublime_plugin.WindowCommand):
         self.repos = {}
 
         # Current File
-        cur_fname = get_active_fname(self.window)
-        self.join_repo(get_repo_forward(cur_fname))
+        cname = get_active_fname(self.window)
+        if cname:
+            self.join_repo(get_repo_forward(cname))
 
         # Project Folders
         project_data = self.window.project_data()
