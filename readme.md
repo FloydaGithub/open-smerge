@@ -15,7 +15,22 @@
     Temporarily not supported  
 
 
-## Keymap
+## Environment
+> ctrl + shift + P -> Open Merge: Settings  
+> Menu -> Preferences -> Package Settings -> OpenMerge -> Setting  
+
+Add smerge installation path to `$PATH`, Or configure the path in sublime-settings:  
+```
+{
+    "smerge_path": "C:\\Program Files\\Sublime Merge\\smerge.exe"
+}
+```
+
+
+## Keymap  
+> ctrl + shift + P -> Open Merge: Key Bindings  
+> Menu -> Preferences -> Package Settings -> OpenMerge -> Key Bindings  
+
 ```py
 [
     { 

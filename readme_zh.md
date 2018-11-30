@@ -15,7 +15,22 @@
     暂时不支持  
 
 
+## 环境  
+> ctrl + shift + P -> Open Merge: Settings  
+> Menu -> Preferences -> Package Settings -> OpenMerge -> Setting  
+
+将smerge的安装路径加到PATH中, 或者在设置中配置路径:  
+```
+{
+    "smerge_path": "C:\\Program Files\\Sublime Merge\\smerge.exe"
+}
+```
+
+
 ## 快捷键  
+> ctrl + shift + P -> Open Merge: Key Bindings  
+> Menu -> Preferences -> Package Settings -> OpenMerge -> Key Bindings  
+
 ```py
 [
     { 
