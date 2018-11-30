@@ -1,0 +1,17 @@
+[
+    {
+        "caption": "Open Merge: Settings",
+        "command": "edit_settings", "args":
+        {
+            "base_file": "${packages}/open-smerge/open_smerge.sublime-settings",
+            "default": "{\n\t\"smerge_path\": \"sublime merge installed path\"\n}"
+        }
+    },
+    {
+        "caption": "Open Merge: Key Bindings",
+        "command": "edit_settings", "args":
+        {
+            "base_file": "${packages}/open-smerge/Default (${platform}).sublime-keymap",
+        }
+    }
+]
