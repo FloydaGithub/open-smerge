@@ -4,11 +4,40 @@ import os
 import subprocess
 
 
+def get_settings():
+    setting = sublime.load_settings('open_smerge.sublime-settings')
+    return setting
+
+
+def edit_setting():
+    sublime.run_command(
+        'edit_settings', {
+            "base_file":
+            "${packages}/open-smerge/open_smerge.sublime-settings",
+            "default":
+            "{\n\t\"smerge_path\": \"sublime merge installed path\"\n}"
+        })
+
+
+def open_smerge_setting(path):
+    smerge_path = get_settings().get('smerge_path')
+
+    if smerge_path is None:
+        if sublime.ok_cancel_dialog("Please set the path to smerge"):
+            edit_setting()
+        return
+
+    cmd = '"%s" "%s"' % (smerge_path, path)
+    err = subprocess.call(cmd, shell=True)
+    if err != 0:
+        sublime.message_dialog("open smerge faild:[%d]" % err)
+
+
 def open_smerge(path):
     cmd = 'smerge "%s"' % path
     err = subprocess.call(cmd, shell=True)
     if err != 0:
-        sublime.message_dialog("open smerge faild:[%d]" % err)
+        open_smerge_setting(path)
 
 
 def get_repo_forward(path, repos={}):
