@@ -1,5 +1,5 @@
 # Open Smerge
-> This is a package open `Sublime Merger` in `Sublime Text`.  
+> This is a package open `Sublime Merge` in `Sublime Text`.  
 > Matches all git repositories based on the path to the current file and the folders in project.  
 
 
