@@ -1,18 +1,16 @@
-# Open Smerge | [中文读我](./readme_zh.md)  
-
+# Open Smerge
 > This is a package open `Sublime Merger` in `Sublime Text`.  
 > Matches all git repositories based on the path to the current file and the folders in project.  
 
 
-## Install  
-- Git  
-    git clone this repository to sublime packages folder  
-    ```sh  
-    git clone https://github.com/FloydaGithub/open-smerge.git
-    ```
+## How To Use
+1. install [Sublime Merge](https://www.sublimemerge.com/)
+2. If not the default installation, please configure the `smerge` path in sublime-setting.
+3. this package matches all git repositories based on the path to the current file and the folders in project.  
 
-- Package Control  
-    Temporarily not supported  
+
+## Bugs  
+create a issee to [issues](https://github.com/FloydaGithub/open-smerge/issues)  
 
 
 ## Environment
