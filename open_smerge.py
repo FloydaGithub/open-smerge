@@ -16,12 +16,16 @@ def log(*args):
 
 
 class timer():
+    def __init__(self, debug=True):
+        self.debug = debug
+
     def __call__(self, func):
         def wrapper(*args, **kwargs):
             stime = time.time()
             ret = func(*args, **kwargs)
             etime = time.time()
-            log(func.__name__, etime - stime, args[0])
+            if self.debug:
+                log(func.__name__, etime - stime, args[0])
             return ret
 
         return wrapper
@@ -66,7 +70,7 @@ def open_smerge(path):
         open_smerge_setting(path)
 
 
-@timer()
+@timer(debug=False)
 def get_repo_forward(path, repos={}):
     cpath = os.path.abspath(os.path.join(path, '..'))
     if cpath == path:
@@ -79,15 +83,16 @@ def get_repo_forward(path, repos={}):
     return get_repo_forward(cpath, repos)
 
 
-@timer()
+@timer(debug=False)
 def get_repo_back(path):
     repos = {}
+    ignored_folder = get_settings().get('ignored_folder')
     for name in os.listdir(path):
         dirname = os.path.join(path, name)
         if os.path.isdir(dirname):
             if name == '.git':
                 repos[path] = path
-            else:
+            elif not dirname in ignored_folder:
                 repos = dict(repos, **get_repo_back(dirname))
     return repos
 
