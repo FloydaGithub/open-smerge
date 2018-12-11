@@ -44,8 +44,7 @@ def edit_setting():
         'edit_settings', {
             "base_file":
             "${packages}/open-smerge/open_smerge.sublime-settings",
-            "default":
-            "{\n\t\"smerge_path\": \"sublime merge installed path\"\n}"
+            "default": "{}"
         })
 
 
