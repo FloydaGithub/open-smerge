@@ -3,6 +3,32 @@ import sublime_plugin
 import os
 import subprocess
 
+# ------------------ Split Line By Floyda ------------------
+# Debug
+# ------------------ Split Line By Floyda ------------------
+DEBUG = False
+import time
+
+
+def log(*args):
+    if DEBUG:
+        print('[Debug]:', *args)
+
+
+class timer():
+    def __call__(self, func):
+        def wrapper(*args, **kwargs):
+            stime = time.time()
+            ret = func(*args, **kwargs)
+            etime = time.time()
+            log(func.__name__, etime - stime, args[0])
+            return ret
+
+        return wrapper
+
+
+# ------------------ Split Line By Floyda ------------------
+
 
 def get_settings():
     setting = sublime.load_settings('open_smerge.sublime-settings')
@@ -40,6 +66,7 @@ def open_smerge(path):
         open_smerge_setting(path)
 
 
+@timer()
 def get_repo_forward(path, repos={}):
     cpath = os.path.abspath(os.path.join(path, '..'))
     if cpath == path:
@@ -52,6 +79,7 @@ def get_repo_forward(path, repos={}):
     return get_repo_forward(cpath, repos)
 
 
+@timer()
 def get_repo_back(path):
     repos = {}
     for name in os.listdir(path):
@@ -88,6 +116,7 @@ class OpenSmergeCommand(sublime_plugin.WindowCommand):
             open_smerge(path_list[0])
             return
 
+        log('self.repos length:', len(self.repos))
         self.window.show_quick_panel(show_list, on_select)
 
     def join_repo(self, items):
@@ -105,6 +134,7 @@ class OpenSmergeCommand(sublime_plugin.WindowCommand):
         # Project Folders
         project_data = self.window.project_data()
         if project_data:
+            log('project_data:', project_data)
             for project in project_data.get('folders'):
                 path = project.get('path')
                 self.join_repo(get_repo_back(path))
