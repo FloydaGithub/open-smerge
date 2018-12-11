@@ -3,6 +3,36 @@ import sublime_plugin
 import os
 import subprocess
 
+# ------------------ Split Line By Floyda ------------------
+# Debug
+# ------------------ Split Line By Floyda ------------------
+DEBUG = False
+import time
+
+
+def log(*args):
+    if DEBUG:
+        print('[Debug]:', *args)
+
+
+class timer():
+    def __init__(self, debug=True):
+        self.debug = debug
+
+    def __call__(self, func):
+        def wrapper(*args, **kwargs):
+            stime = time.time()
+            ret = func(*args, **kwargs)
+            etime = time.time()
+            if self.debug:
+                log(func.__name__, etime - stime, args[0])
+            return ret
+
+        return wrapper
+
+
+# ------------------ Split Line By Floyda ------------------
+
 
 def get_settings():
     setting = sublime.load_settings('open_smerge.sublime-settings')
@@ -14,8 +44,7 @@ def edit_setting():
         'edit_settings', {
             "base_file":
             "${packages}/open-smerge/open_smerge.sublime-settings",
-            "default":
-            "{\n\t\"smerge_path\": \"sublime merge installed path\"\n}"
+            "default": "{}"
         })
 
 
@@ -40,6 +69,7 @@ def open_smerge(path):
         open_smerge_setting(path)
 
 
+@timer(debug=False)
 def get_repo_forward(path, repos={}):
     cpath = os.path.abspath(os.path.join(path, '..'))
     if cpath == path:
@@ -52,14 +82,16 @@ def get_repo_forward(path, repos={}):
     return get_repo_forward(cpath, repos)
 
 
+@timer(debug=False)
 def get_repo_back(path):
     repos = {}
+    ignored_folder = get_settings().get('ignored_folder')
     for name in os.listdir(path):
         dirname = os.path.join(path, name)
         if os.path.isdir(dirname):
             if name == '.git':
                 repos[path] = path
-            else:
+            elif not dirname in ignored_folder:
                 repos = dict(repos, **get_repo_back(dirname))
     return repos
 
@@ -88,6 +120,7 @@ class OpenSmergeCommand(sublime_plugin.WindowCommand):
             open_smerge(path_list[0])
             return
 
+        log('self.repos length:', len(self.repos))
         self.window.show_quick_panel(show_list, on_select)
 
     def join_repo(self, items):
@@ -105,6 +138,7 @@ class OpenSmergeCommand(sublime_plugin.WindowCommand):
         # Project Folders
         project_data = self.window.project_data()
         if project_data:
+            log('project_data:', project_data)
             for project in project_data.get('folders'):
                 path = project.get('path')
                 self.join_repo(get_repo_back(path))
