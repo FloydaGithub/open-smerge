@@ -12,7 +12,7 @@
     ```
 
 - Package Control  
-    Temporarily not supported  
+    [Not passed](https://github.com/wbond/package_control_channel/pull/7376)  
 
 
 ## Environment
