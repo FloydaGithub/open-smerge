@@ -12,7 +12,7 @@
     ```
 
 - Package Control  
-    暂时不支持  
+    [未通过](https://github.com/wbond/package_control_channel/pull/7376)  
 
 
 ## 环境  

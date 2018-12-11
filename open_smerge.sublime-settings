@@ -1,3 +1,4 @@
 {
     "smerge_path": null,
+    "ignored_folder": [".svn", ".git", ".hg", "CVS"],
 }
